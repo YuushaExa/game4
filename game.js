@@ -1,3 +1,8 @@
+const gameState = {
+    globalCount: 0,
+    previousScene: null
+};
+
 const gameData = {
     scenes: {
         start_screen: {
