@@ -4,7 +4,7 @@ class VisualNovelEngine {
         this.scenesData = {};
         this.handlers = {};
         this.mainDiv = document.getElementById('main');
-
+        
         // Set up event delegation once during initialization
         this.setupEventDelegation();
     }
@@ -24,10 +24,6 @@ setupEventDelegation() {
     });
 }
 
-
-
-
-
     // Start the visual novel
 startVisualNovel() {
     const startingScene = this.scenesData['start_screen'] ? 'start_screen' : 'block_1';
@@ -35,8 +31,6 @@ startVisualNovel() {
         this.renderScene(startingScene);
     } else {
         console.error('No starting scene found');
-
-
     }
 }
 
@@ -45,16 +39,35 @@ startVisualNovel() {
          if (this.currentScene && this.scenesData[this.currentScene]?.onLeave) {
         this.scenesData[this.currentScene].onLeave();
     }
-
+   
         const scene = this.scenesData[sceneId];
         if (!scene) {
             console.error(`Scene ${sceneId} not found`);
             return;
         }
 
+  this.mainDiv.style.backgroundImage = 'none';
+    this.mainDiv.style.backgroundColor = 'transparent';
+
+        
+       if (scene.background) {
+            this.setBackground(scene.background);
+        }
+           if (scene.color) {
+            this.setColor(scene.color);
+        }
+        
         this.currentScene = sceneId;
         this.mainDiv.innerHTML = scene.html || '';
 
+  if (scene.dialog) {
+        renderDialogSystem(scene.dialog);
+    }
+        
+  if (scene.choices) {
+        renderChoices(scene.choices);
+    }
+        
         if (scene.onRender) {
             scene.onRender();
         }
@@ -62,6 +75,14 @@ startVisualNovel() {
         this.triggerEvent('sceneChanged', { sceneId });
     }
 
+    setBackground(backgroundUrl) {
+           this.mainDiv.style.backgroundImage = `url('${backgroundUrl}')`;
+    }
+       setColor(color) {
+          this.mainDiv.style.backgroundColor = color;
+    }
+
+    
     // Event handling system
     on(event, handler) {
         if (!this.handlers[event]) {
@@ -80,7 +101,7 @@ startVisualNovel() {
 // Initialize the engine when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     window.vnEngine = new VisualNovelEngine();
-
+    
     // Check if gameData is available
     if (typeof gameData !== 'undefined') {
         vnEngine.init(gameData);
