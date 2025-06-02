@@ -50,6 +50,24 @@ const gameData = {
                     <button class="options-btn" next_scene="options">Options</button>
                         </div>
             `,
+            buttons: [
+    {
+        type: "image", // "image" or "text"
+        position: "50px 100px auto auto", // top, left, bottom, right
+        url: "https://example.com/page1",
+        image: "https://img.bunnyccdn.co/_r/300x400/100/7e/c8/7ec8bff42801bd63cd0b88b43d7a53d0/7ec8bff42801bd63cd0b88b43d7a53d0.jpg", // Required if type="image"
+        alt: "Image 1", // Alt text for images
+        text: "" // Leave empty if using image
+    },
+    {
+        type: "text",
+        position: "150px 200px auto auto",
+        url: "https://example.com/page2",
+        text: "Click Me", // Required if type="text"
+        image: "", // Leave empty if using text
+        color: "#FF5733" // Optional text color
+    }
+],
             onRender: function() {
                 // Refresh the count display when returning to this scene
                 document.querySelector('.count-display').textContent = `Current count: ${gameState.globalCount}`;
