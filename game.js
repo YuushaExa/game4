@@ -56,7 +56,7 @@ const gameData = {
             position: "50px 100px auto auto",
             image: "https://img.bunnyccdn.co/_r/300x400/100/7e/c8/7ec8bff42801bd63cd0b88b43d7a53d0/7ec8bff42801bd63cd0b88b43d7a53d0.jpg",
             alt: "Button Image",
-            next_scene: "scene_2",
+            next_scene: "block_1",
             width: "150px"
         },
         {
@@ -65,7 +65,7 @@ const gameData = {
             text: "Continue",
             color: "#FFFFFF",
             background: "#FF5733",
-            next_scene: "scene_3",
+            next_scene: "options",
             class: "special-button"
         }
     ],
