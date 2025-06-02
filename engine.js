@@ -61,15 +61,15 @@ startVisualNovel() {
         this.mainDiv.innerHTML = scene.html || '';
 
   if (scene.dialog) {
-        renderDialogSystem(scene.dialog);
+        this.renderDialogSystem(scene.dialog);
     }
 
-          if (scene.buttons) {
-        renderButtons(scene.buttons);
+  if (scene.buttons) {
+        this.renderButtons(scene.buttons);
     }
         
   if (scene.choices) {
-        renderChoices(scene.choices);
+        this.renderChoices(scene.choices);
     }
         
         if (scene.onRender) {
