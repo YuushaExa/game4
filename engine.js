@@ -65,7 +65,7 @@ startVisualNovel() {
     }
 
   if (scene.buttons) {
-        this.renderButtons(scene.buttons);
+        renderButtons(scene.buttons);
     }
         
   if (scene.choices) {
