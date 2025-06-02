@@ -6,6 +6,7 @@ const gameState = {
 const gameData = {
     scenes: {
         start_screen: {
+              background: "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg",
             html: `
                         <style>
                             body {
