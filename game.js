@@ -50,7 +50,6 @@ const gameData = {
                     <button class="options-btn" next_scene="options">Options</button>
                         </div>
             `,
-            {
     buttons: [
         {
             type: "image",
@@ -69,8 +68,7 @@ const gameData = {
             next_scene: "scene_3",
             class: "special-button"
         }
-    ]
-},
+    ],
             onRender: function() {
                 // Refresh the count display when returning to this scene
                 document.querySelector('.count-display').textContent = `Current count: ${gameState.globalCount}`;
