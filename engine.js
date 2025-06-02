@@ -61,7 +61,7 @@ startVisualNovel() {
         this.mainDiv.innerHTML = scene.html || '';
 
   if (scene.dialog) {
-        this.renderDialogSystem(scene.dialog);
+       renderDialogSystem(scene.dialog);
     }
 
   if (scene.buttons) {
@@ -69,7 +69,7 @@ startVisualNovel() {
     }
         
   if (scene.choices) {
-        this.renderChoices(scene.choices);
+        renderChoices(scene.choices);
     }
         
         if (scene.onRender) {
