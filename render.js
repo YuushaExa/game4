@@ -96,12 +96,10 @@ function renderChoices(choices) {
             const link = document.createElement('a');
             link.href = button.url || 'javascript:void(0)';
             
-            // Handle scene transitions if next_scene is specified
             if (button.next_scene) {
                 link.setAttribute('next_scene', button.next_scene);
             }
             
-            // Set button position
             link.style.position = 'absolute';
             const [top, left, bottom, right] = button.position.split(' ');
             link.style.top = top;
@@ -109,7 +107,6 @@ function renderChoices(choices) {
             link.style.bottom = bottom;
             link.style.right = right;
 
-            // Create image or text content
             if (button.type === "image") {
                 const img = document.createElement('img');
                 img.src = button.image;
@@ -126,12 +123,10 @@ function renderChoices(choices) {
                 link.style.background = button.background || "rgba(0,0,0,0.2)";
             }
 
-            // Add custom classes if specified
             if (button.class) {
                 link.className = button.class;
             }
 
-            // Add to main container
             this.mainDiv.appendChild(link);
         });
     }
