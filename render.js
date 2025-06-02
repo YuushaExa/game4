@@ -91,7 +91,7 @@ function renderChoices(choices) {
 }
 
 
-  renderButtons(buttonsData) {
+function renderButtons(buttonsData) {
         buttonsData.forEach(button => {
             const link = document.createElement('a');
             link.href = button.url || 'javascript:void(0)';
