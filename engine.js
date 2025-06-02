@@ -63,6 +63,10 @@ startVisualNovel() {
   if (scene.dialog) {
         renderDialogSystem(scene.dialog);
     }
+
+          if (scene.buttons) {
+        renderButtons(scene.buttons);
+    }
         
   if (scene.choices) {
         renderChoices(scene.choices);
@@ -97,6 +101,54 @@ startVisualNovel() {
         }
     }
 }
+
+// something
+
+  renderButtons(buttonsData) {
+        buttonsData.forEach(button => {
+            const link = document.createElement('a');
+            link.href = button.url || 'javascript:void(0)';
+            
+            // Handle scene transitions if next_scene is specified
+            if (button.next_scene) {
+                link.setAttribute('next_scene', button.next_scene);
+            }
+            
+            // Set button position
+            link.style.position = 'absolute';
+            const [top, left, bottom, right] = button.position.split(' ');
+            link.style.top = top;
+            link.style.left = left;
+            link.style.bottom = bottom;
+            link.style.right = right;
+
+            // Create image or text content
+            if (button.type === "image") {
+                const img = document.createElement('img');
+                img.src = button.image;
+                img.alt = button.alt || "";
+                img.style.maxWidth = button.width || "100px";
+                link.appendChild(img);
+            } else if (button.type === "text") {
+                link.textContent = button.text;
+                link.style.textDecoration = "none";
+                link.style.color = button.color || "#0066cc";
+                link.style.fontWeight = "bold";
+                link.style.padding = "8px 12px";
+                link.style.borderRadius = "4px";
+                link.style.background = button.background || "rgba(0,0,0,0.2)";
+            }
+
+            // Add custom classes if specified
+            if (button.class) {
+                link.className = button.class;
+            }
+
+            // Add to main container
+            this.mainDiv.appendChild(link);
+        });
+    }
+
 
 // Initialize the engine when the page loads
 document.addEventListener('DOMContentLoaded', () => {
