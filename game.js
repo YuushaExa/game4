@@ -247,7 +247,7 @@ color: "#bbbbbb",
             }
         },
 
-    hero_selection = {
+    hero_selection: {
     background: "https://example.com/hero_select_bg.jpg",
     html: `
         <style>
