@@ -60,25 +60,7 @@ startVisualNovel() {
         this.currentScene = sceneId;
         this.mainDiv.innerHTML = scene.html || '';
 
-if (gameState.selectedHero) {
-    const hero = heroes[gameState.selectedHero];
-    const heroDisplay = document.createElement('div');
-    heroDisplay.className = 'hero-display';
-    heroDisplay.style.position = 'fixed';
-    heroDisplay.style.bottom = '10px';
-    heroDisplay.style.left = '10px';
-    heroDisplay.style.background = 'rgba(0,0,0,0.7)';
-    heroDisplay.style.color = 'white';
-    heroDisplay.style.padding = '10px';
-    heroDisplay.style.borderRadius = '5px';
-    heroDisplay.innerHTML = `
-        <img src="${hero.image}" style="height: 50px; border-radius: 50%;">
-        <div>${hero.name}</div>
-        <div>HP: 100/100</div>
-    `;
-    this.mainDiv.appendChild(heroDisplay);
-}
-        
+ 
   if (scene.dialog) {
        renderDialogSystem(scene.dialog);
     }
