@@ -56,7 +56,7 @@ const gameData = {
             position: "50px 100px auto auto",
             image: "https://img.bunnyccdn.co/_r/300x400/100/7e/c8/7ec8bff42801bd63cd0b88b43d7a53d0/7ec8bff42801bd63cd0b88b43d7a53d0.jpg",
             alt: "Button Image",
-            next_scene: "block_1",
+            next_scene: "block_12",
             width: "150px"
         },
         {
@@ -77,6 +77,25 @@ const gameData = {
             },
             next_scene: "block_1"
         },
+          block_12: {
+ dialog: [
+                {
+                    name: "Character 1",
+                    image: "avatar.jpg",
+                    text: "This is the first dialogue."
+                },
+                {
+                    name: "Character 1",
+                    image: "avatar.jpg",
+                    text: "This is the second dialogue."
+                },
+                {
+                    name: "Character 2",
+                    image: "avatar2.jpg",
+                    text: "This is the third dialogue.",
+                }
+     ]
+          },
         block_1: {
             background: "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg",
             color: "#bbbbbb",
