@@ -77,7 +77,7 @@ const gameData = {
                          <button class="start-btn" next_scene="block_2">Start 2</button>
                     <div class="count-display">Current count: ${gameState.globalCount}</div>
                     <button class="options-btn" next_scene="options">Options</button>
-                        <button class="start-btn" next_scene="hero_selection">Select Hero</button>
+                        <button class="start-btn" next_scene="hero_list">Available Hero</button>
                         </div>
             `,
     buttons: [
