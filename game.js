@@ -1,6 +1,35 @@
+const heroes = {
+    rita: {
+        name: "Rita",
+        image: "rita.jpg",
+        stats: {
+            strength: 5,
+            intelligence: 8,
+            agility: 6,
+            charisma: 7
+        },
+        skills: ["Healing", "Persuasion", "First Aid"],
+        bio: "A compassionate medic who always puts others before herself."
+    },
+    kong: {
+        name: "Kong",
+        image: "kong.jpg",
+        stats: {
+            strength: 9,
+            intelligence: 4,
+            agility: 7,
+            charisma: 5
+        },
+        skills: ["Combat", "Intimidation", "Survival"],
+        bio: "A tough warrior with a heart of gold beneath his rough exterior."
+    }
+};
+
 const gameState = {
     globalCount: 0,
-    previousScene: null
+    previousScene: null,
+    selectedHero: null,  
+    party: []
 };
 
 const gameData = {
@@ -48,6 +77,7 @@ const gameData = {
                          <button class="start-btn" next_scene="block_2">Start 2</button>
                     <div class="count-display">Current count: ${gameState.globalCount}</div>
                     <button class="options-btn" next_scene="options">Options</button>
+                        <button class="start-btn" next_scene="hero_selection">Select Hero</button>
                         </div>
             `,
     buttons: [
@@ -216,5 +246,93 @@ color: "#bbbbbb",
                 gameState.previousScene = vnEngine.currentScene;
             }
         },
+
+    hero_selection = {
+    background: "https://example.com/hero_select_bg.jpg",
+    html: `
+        <style>
+            .hero-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 20px;
+            }
+            .hero-card {
+                width: 200px;
+                background: rgba(0,0,0,0.7);
+                color: white;
+                padding: 15px;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: transform 0.3s;
+            }
+            .hero-card:hover {
+                transform: scale(1.05);
+            }
+            .hero-image {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+            .hero-name {
+                font-size: 1.2em;
+                margin: 10px 0;
+                text-align: center;
+            }
+            .hero-stats {
+                font-size: 0.9em;
+                margin-bottom: 10px;
+            }
+            .back-btn {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background: #ff6b6b;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                cursor: pointer;
+            }
+        </style>
+        <h1 style="text-align: center; color: white;">Choose Your Hero</h1>
+        <div class="hero-container" id="heroContainer"></div>
+        <button class="back-btn" next_scene="start_screen">Back</button>
+    `,
+    onRender: function() {
+        const container = document.getElementById('heroContainer');
+        container.innerHTML = '';
+        
+        // Create a card for each hero
+        for (const [id, hero] of Object.entries(heroes)) {
+            const card = document.createElement('div');
+            card.className = 'hero-card';
+            card.dataset.heroId = id;
+            
+            // Display hero info
+            card.innerHTML = `
+                <img src="${hero.image}" class="hero-image" alt="${hero.name}">
+                <div class="hero-name">${hero.name}</div>
+                <div class="hero-stats">
+                    <div>STR: ${hero.stats.strength}</div>
+                    <div>INT: ${hero.stats.intelligence}</div>
+                    <div>AGI: ${hero.stats.agility}</div>
+                    <div>CHA: ${hero.stats.charisma}</div>
+                </div>
+                <div>Skills: ${hero.skills.join(', ')}</div>
+            `;
+            
+            // Add click handler
+            card.addEventListener('click', () => {
+                gameState.selectedHero = id;
+                gameState.party = [id]; // Start with just this hero
+                vnEngine.renderScene('block_1'); // Or wherever you want to go next
+            });
+            
+            container.appendChild(card);
+        }
+    }
+},
+        
     }
 };
