@@ -247,7 +247,7 @@ color: "#bbbbbb",
             }
         },
 
-    hero_selection: {
+    hero_list: {
     background: "https://example.com/hero_select_bg.jpg",
     html: `
         <style>
@@ -313,22 +313,7 @@ color: "#bbbbbb",
             card.innerHTML = `
                 <img src="${hero.image}" class="hero-image" alt="${hero.name}">
                 <div class="hero-name">${hero.name}</div>
-                <div class="hero-stats">
-                    <div>STR: ${hero.stats.strength}</div>
-                    <div>INT: ${hero.stats.intelligence}</div>
-                    <div>AGI: ${hero.stats.agility}</div>
-                    <div>CHA: ${hero.stats.charisma}</div>
-                </div>
-                <div>Skills: ${hero.skills.join(', ')}</div>
             `;
-            
-            // Add click handler
-            card.addEventListener('click', () => {
-                gameState.selectedHero = id;
-                gameState.party = [id]; // Start with just this hero
-                vnEngine.renderScene('block_1'); // Or wherever you want to go next
-            });
-            
             container.appendChild(card);
         }
     }
