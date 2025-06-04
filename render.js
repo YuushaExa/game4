@@ -192,5 +192,6 @@ function renderHeroList(heroListData) {
         </div>
     <button class="btn btn-primary" next_scene="${gameState.previousScene}">Back</button>
     `;
-   
+                   gameState.previousScene = vnEngine.currentScene;
+
 }
