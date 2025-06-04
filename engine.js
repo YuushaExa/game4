@@ -60,7 +60,10 @@ startVisualNovel() {
         this.currentScene = sceneId;
         this.mainDiv.innerHTML = scene.html || '';
 
- 
+ if (scene.ui === "hero_list") {
+    renderHeroList(scene);
+}
+        
   if (scene.dialog) {
        renderDialogSystem(scene.dialog);
     }
