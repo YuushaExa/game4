@@ -238,16 +238,13 @@ color: "#bbbbbb",
                         <button data-lang="ru">Русский</button>
                     </div>
                     <div>Volume controls would go here</div>
-                    <button class="btn btn-primary" next_scene="${gameState.previousScene}">Back</button>
+        <button class="btn btn-primary" next_scene="start_screen">Back</button>
                 </div>
             `,
         },
 
     hero_list:  {
-    ui: "hero_list",
-          onRender: function() {
-                gameState.previousScene = vnEngine.currentScene;
-            }
+    ui: "hero_list"
         },
         
     }
