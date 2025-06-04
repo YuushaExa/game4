@@ -238,7 +238,7 @@ color: "#bbbbbb",
                         <button data-lang="ru">Русский</button>
                     </div>
                     <div>Volume controls would go here</div>
-                    <button class="btn btn-primary" next_scene="${gameState.previousScene || 'start_screen'}">Back</button>
+                    <button class="btn btn-primary" next_scene="${gameState.previousScene}">Back</button>
                 </div>
             `,
           onRender: function() {
@@ -247,36 +247,7 @@ color: "#bbbbbb",
         },
 
     hero_list:  {
-            html: `
-                <style>
-                    .options-menu {
-                        background: #3f51b5;
-                        color: white;
-                        padding: 30px;
-                        border-radius: 10px;
-                        max-width: 500px;
-                        margin: auto;
-                    }
-                    .back-btn {
-                        padding: 10px 20px;
-                        background-color: #ff6b6b;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        margin-top: 20px;
-                        cursor: pointer;
-                    }
-                </style>
-                <div class="options-menu">
-                    <h2>Options</h2>
-                    <div id="language-switcher">
-                        <button data-lang="en">English</button>
-                        <button data-lang="ru">Русский</button>
-                    </div>
-                    <div>Volume controls would go here</div>
-                    <button class="btn btn-primary" next_scene="${gameState.previousScene || 'start_screen'}">Back</button>
-                </div>
-            `,
+    ui: "hero_list",
           onRender: function() {
                 gameState.previousScene = vnEngine.currentScene;
             }
