@@ -135,8 +135,7 @@ function renderButtons(buttonsData) {
 
 function renderHeroList(heroListData) {
     // Clear the current scene content
-    const container = document.getElementById('vn-container');
-    container.innerHTML = '';
+    const container = document.getElementById('main');
     
     // Create hero list HTML
     container.innerHTML = `
