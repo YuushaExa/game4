@@ -190,22 +190,9 @@ function renderHeroList(heroListData) {
                 </div>
             `).join('')}
         </div>
-        <button class="back-btn" next_scene="start_screen">Back to Main Menu</button>
+    <button class="btn btn-primary" next_scene="${gameState.previousScene}">Back</button>
     `;
     
-    // Add event listeners to hero cards
-    document.querySelectorAll('.hero-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const heroId = card.getAttribute('data-hero-id');
-            gameState.selectedHero = heroId;
-            alert(`You selected ${heroes[heroId].name}!`);
-            // You could also add to party here:
-            // gameState.party.push(heroId);
-        });
-    });
-    
-    // Add event listener to back button
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        vnEngine.loadScene(this.getAttribute('next_scene'));
-    });
+       gameState.previousScene = vnEngine.currentScene;
+
 }
