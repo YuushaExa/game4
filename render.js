@@ -130,3 +130,83 @@ function renderButtons(buttonsData) {
             this.mainDiv.appendChild(link);
         });
     }
+
+// HERO list
+
+function renderHeroList(heroListData) {
+    // Clear the current scene content
+    const container = document.getElementById('vn-container');
+    container.innerHTML = '';
+    
+    // Create hero list HTML
+    container.innerHTML = `
+        <style>
+            .hero-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+                padding: 20px;
+            }
+            .hero-card {
+                width: 200px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+            .hero-card:hover {
+                transform: scale(1.05);
+            }
+            .hero-image {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+            .hero-info {
+                padding: 10px;
+                background: #333;
+                color: white;
+            }
+            .back-btn {
+                margin: 20px;
+                padding: 10px 20px;
+                background: #ff6b6b;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+        <h1>Available Heroes</h1>
+        <div class="hero-list">
+            ${Object.entries(heroes).map(([id, hero]) => `
+                <div class="hero-card" data-hero-id="${id}">
+                    <img src="${hero.image}" alt="${hero.name}" class="hero-image">
+                    <div class="hero-info">
+                        <h3>${hero.name}</h3>
+                        <p>${hero.bio.substring(0, 50)}...</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <button class="back-btn" next_scene="start_screen">Back to Main Menu</button>
+    `;
+    
+    // Add event listeners to hero cards
+    document.querySelectorAll('.hero-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const heroId = card.getAttribute('data-hero-id');
+            gameState.selectedHero = heroId;
+            alert(`You selected ${heroes[heroId].name}!`);
+            // You could also add to party here:
+            // gameState.party.push(heroId);
+        });
+    });
+    
+    // Add event listener to back button
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        vnEngine.loadScene(this.getAttribute('next_scene'));
+    });
+}
