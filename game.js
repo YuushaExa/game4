@@ -248,7 +248,10 @@ color: "#bbbbbb",
         },
 
     hero_list: {
-    ui: "hero_list"
+    ui: "hero_list",
+           onRender: function() {
+                gameState.previousScene = vnEngine.currentScene;
+            }
 },
         
     }
