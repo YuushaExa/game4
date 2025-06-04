@@ -250,7 +250,7 @@ color: "#bbbbbb",
     hero_list: {
     ui: "hero_list",
          html: `
-                                     <button class="btn btn-primary9" next_scene="${gameState.previousScene'}">Back1</button>
+                                     <button class="btn btn-primary9" next_scene="${gameState.previousScene}">Back1</button>
          `,
            onRender: function() {
                 gameState.previousScene = vnEngine.currentScene;
