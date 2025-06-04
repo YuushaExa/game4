@@ -190,7 +190,7 @@ function renderHeroList(heroListData) {
                 </div>
             `).join('')}
         </div>
-    <button class="btn btn-primary" next_scene="${gameState.previousScene}">Back</button>
+        <button class="btn btn-primary" next_scene="start_screen">Back</button>
     `;
 
 }
