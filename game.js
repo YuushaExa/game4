@@ -248,75 +248,7 @@ color: "#bbbbbb",
         },
 
     hero_list: {
-    background: "https://example.com/hero_select_bg.jpg",
-    html: `
-        <style>
-            .hero-container {
-                display: flex;
-                justify-content: center;
-                gap: 20px;
-                flex-wrap: wrap;
-                padding: 20px;
-            }
-            .hero-card {
-                width: 200px;
-                background: rgba(0,0,0,0.7);
-                color: white;
-                padding: 15px;
-                border-radius: 10px;
-                cursor: pointer;
-                transition: transform 0.3s;
-            }
-            .hero-card:hover {
-                transform: scale(1.05);
-            }
-            .hero-image {
-                width: 100%;
-                height: 150px;
-                object-fit: cover;
-                border-radius: 5px;
-            }
-            .hero-name {
-                font-size: 1.2em;
-                margin: 10px 0;
-                text-align: center;
-            }
-            .hero-stats {
-                font-size: 0.9em;
-                margin-bottom: 10px;
-            }
-            .back-btn {
-                margin-top: 20px;
-                padding: 10px 20px;
-                background: #ff6b6b;
-                border: none;
-                border-radius: 5px;
-                color: white;
-                cursor: pointer;
-            }
-        </style>
-        <h1 style="text-align: center; color: white;">Choose Your Hero</h1>
-        <div class="hero-container" id="heroContainer"></div>
-        <button class="back-btn" next_scene="start_screen">Back</button>
-    `,
-    onRender: function() {
-        const container = document.getElementById('heroContainer');
-        container.innerHTML = '';
-        
-        // Create a card for each hero
-        for (const [id, hero] of Object.entries(heroes)) {
-            const card = document.createElement('div');
-            card.className = 'hero-card';
-            card.dataset.heroId = id;
-            
-            // Display hero info
-            card.innerHTML = `
-                <img src="${hero.image}" class="hero-image" alt="${hero.name}">
-                <div class="hero-name">${hero.name}</div>
-            `;
-            container.appendChild(card);
-        }
-    }
+    ui: "hero_list"
 },
         
     }
