@@ -242,19 +242,12 @@ color: "#bbbbbb",
                 </div>
             `,
           onRender: function() {
-                // Store current scene as previous before going to options
                 gameState.previousScene = vnEngine.currentScene;
             }
         },
 
     hero_list: {
-    ui: "hero_list",
-         html: `
-                                     <button class="btn btn-primary9" next_scene="${gameState.previousScene}">Back1</button>
-         `,
-           onRender: function() {
-                gameState.previousScene = vnEngine.currentScene;
-            }
+    ui: "hero_list"
 },
         
     }
