@@ -45,6 +45,7 @@ startVisualNovel() {
             console.error(`Scene ${sceneId} not found`);
             return;
         }
+            gameState.previousScene = vnEngine.currentScene;
 
   this.mainDiv.style.backgroundImage = 'none';
     this.mainDiv.style.backgroundColor = 'transparent';
