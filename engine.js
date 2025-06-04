@@ -108,6 +108,7 @@ startVisualNovel() {
 
 // something
 
+    gameState.previousScene = vnEngine.currentScene;
 
 
 // Initialize the engine when the page loads
