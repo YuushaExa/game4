@@ -86,7 +86,7 @@ const gameData = {
             position: "50px 100px auto auto",
             image: "https://img.bunnyccdn.co/_r/300x400/100/7e/c8/7ec8bff42801bd63cd0b88b43d7a53d0/7ec8bff42801bd63cd0b88b43d7a53d0.jpg",
             alt: "Button Image",
-            next_scene: "block_12",
+            next_scene: "block_3",
             width: "150px"
         },
         {
@@ -208,7 +208,25 @@ const gameData = {
                       next_scene: "block_1"
         },
  block_3: {
-color: "#bbbbbb",
+  "parallax": {
+    "layers": [
+      {
+        "class": "layer layer-back",
+        "data-speed": 0.5,
+        "image": "https://example.com/path/to/your/background-image.jpg"
+      },
+      {
+        "class": "layer layer-middle",
+        "data-speed": 0.3,
+        "image": "https://example.com/path/to/your/middle-image.png"
+      },
+      {
+        "class": "layer layer-front",
+        "data-speed": 0.1,
+        "image": "https://example.com/path/to/your/foreground-image.png"
+      }
+    ]
+  }
  },
       options: {
             html: `
