@@ -197,7 +197,7 @@ function renderHeroList(heroListData) {
 
 // parallax
 
-function setupAutoParallax(layers) {
+function setupParallax(layers) {
     // 1. Create container
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
