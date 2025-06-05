@@ -251,9 +251,9 @@ function setupParallax(layers) {
 
         // Set up scroll event
         window.addEventListener('scroll', this.handleParallaxScroll);
-    }
+    };
 
-    handleParallaxScroll() {
+ function handleParallaxScroll() {
         const scrollPosition = window.scrollY || window.pageYOffset;
         const layers = document.querySelectorAll('.parallax-layer');
         
