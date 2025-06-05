@@ -250,16 +250,5 @@ function setupParallax(layers) {
         document.body.insertBefore(parallaxContainer, this.mainDiv);
 
         // Set up scroll event
-        window.addEventListener('scroll', this.handleParallaxScroll);
     };
 
- function handleParallaxScroll() {
-        const scrollPosition = window.scrollY || window.pageYOffset;
-        const layers = document.querySelectorAll('.parallax-layer');
-        
-        layers.forEach(layer => {
-            const speed = parseFloat(layer.dataset.speed);
-            const yPos = -(scrollPosition * speed);
-            layer.style.transform = `translateY(${yPos}px)`;
-        });
-    }
