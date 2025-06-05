@@ -212,17 +212,17 @@ const gameData = {
     "layers": [
       {
         "class": "layer layer-back",
-        "data-speed": 0.5,
+        "auto-speed": 0.5,
         "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       },
       {
         "class": "layer layer-middle",
-        "data-speed": 0.3,
+        "auto-speed": 0.3,
         "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       },
       {
         "class": "layer layer-front",
-        "data-speed": 0.1,
+        "auto-speed": 0.1,
         "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       }
     ]
