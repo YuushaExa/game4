@@ -198,12 +198,10 @@ function renderHeroList(heroListData) {
 // parallax
 
 function setupParallax(layers) {
-
     // 1. Create containerAdd commentMore actions
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
-document.getElementById('main').appendChild(parallaxContainer);
-
+ document.body.prepend(parallaxContainer);
     // 2. Add CSS (optimized for auto-scrolling)
     const parallaxCSS = `
         <style>
