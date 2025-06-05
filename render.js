@@ -250,5 +250,16 @@ function setupParallax(layers) {
         document.body.insertBefore(parallaxContainer, this.mainDiv);
 
         // Set up scroll event
-    };
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            const layers = parallaxContainer.querySelectorAll('.parallax-layer');
+            
+            layers.forEach(layer => {
+                const speed = parseFloat(layer.dataset.speed);
+                const yPos = -(scrollPosition * speed);
+                layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+};
 
