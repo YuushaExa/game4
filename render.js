@@ -201,37 +201,27 @@ function setupParallax(layers) {
     // 1. Create container
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
-    document.body.prepend(parallaxContainer);
-
+    this.mainDiv.appendChild(parallaxContainer); // Render under mainDiv
 
     // 2. Add CSS (optimized for auto-scrolling)
     const parallaxCSS = `
         <style>
             .parallax-container {
-                position: relative;
-                top: 0;
-                left: 0;
+                position: relative;  // Changed from fixed to relative
                 width: 100%;
-                height: 100%;
+                height: 300px;      // Set to your desired height
                 overflow: hidden;
-                z-index: -1;
+                z-index: 0;
             }
             .parallax-layer {
-                position: relative;
+                position: absolute;   // Changed from relative to absolute
+                top: 0;
+                left: 0;
                 width: 100%;
                 height: 100%;
                 background-repeat: repeat-x;
                 background-size: auto 100%;
                 will-change: transform;
-            }
-                      .parallax-layer.layer.layer-back {
-height:300px;
-            }
-               .parallax-layer.layer.layer-middle {
-height:300px;
-            }
-               .parallax-layer.layer.layer-front {
-height:300px;
             }
             .layer-back { z-index: 1; }
             .layer-middle { z-index: 2; }
@@ -245,15 +235,15 @@ height:300px;
         const layerElement = document.createElement('div');
         layerElement.className = `parallax-layer ${layer.class}`;
         layerElement.style.backgroundImage = `url('${layer.image}')`;
-        layerElement.dataset.speed = layer['auto-speed']; // Only auto-speed used
+        layerElement.dataset.speed = layer['auto-speed'];
         parallaxContainer.appendChild(layerElement);
     });
 
-    // 4. Auto-scroll animation (smooth & efficient)
+    // 4. Auto-scroll animation
     let animationId;
     let scrollPos = 0;
     const animate = () => {
-        scrollPos += 0.5; // Base speed (adjust as needed)
+        scrollPos += 0.5;
         parallaxContainer.querySelectorAll('.parallax-layer').forEach(layer => {
             const speed = parseFloat(layer.dataset.speed);
             const xPos = -(scrollPos * speed) % window.innerWidth;
@@ -262,5 +252,4 @@ height:300px;
         animationId = requestAnimationFrame(animate);
     };
     animate();
-
 }
