@@ -242,7 +242,7 @@ function setupParallax(layers) {
             const layerElement = document.createElement('div');
             layerElement.className = `parallax-layer ${layer.class}`;
             layerElement.style.backgroundImage = `url('${layer.image}')`;
-            layerElement.dataset.speed = layer.data-speed;
+        layerElement.dataset.speed = layer['data-speed']; // Fixed this line
             parallaxContainer.appendChild(layerElement);
         });
 
