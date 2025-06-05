@@ -4,7 +4,6 @@ class VisualNovelEngine {
         this.scenesData = {};
         this.handlers = {};
         this.mainDiv = document.getElementById('main');
-            this.handleParallaxScroll = this.handleParallaxScroll.bind(this);
 
         // Set up event delegation once during initialization
         this.setupEventDelegation();
