@@ -201,7 +201,7 @@ function setupParallax(layers) {
     // 1. Create containerAdd commentMore actions
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
-    document.body.prepend(parallaxContainer);
+    this.mainDiv.body.prepend(parallaxContainer);
 
 
     // 2. Add CSS (optimized for auto-scrolling)
