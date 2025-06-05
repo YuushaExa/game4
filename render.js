@@ -198,68 +198,108 @@ function renderHeroList(heroListData) {
 // parallax
 
 function setupParallax(layers) {
-        // Create container
-        const parallaxContainer = document.createElement('div');
-        parallaxContainer.className = 'parallax-container';
+    // Create container
+    const parallaxContainer = document.createElement('div');
+    parallaxContainer.className = 'parallax-container';
+    
+    // Add CSS for parallax
+    const parallaxCSS = `
+        <style>
+            .parallax-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1;
+            }
+            .parallax-layer {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center;
+                will-change: transform;
+            }
+            .layer-back {
+                z-index: 1;
+            }
+            .layer-middle {
+                z-index: 2;
+            }
+            .layer-front {
+                z-index: 3;
+            }
+        </style>
+    `;
+    document.head.insertAdjacentHTML('beforeend', parallaxCSS);
+
+    // Create layers
+    layers.forEach(layer => {
+        const layerElement = document.createElement('div');
+        layerElement.className = `parallax-layer ${layer.class}`;
+        layerElement.style.backgroundImage = `url('${layer.image}')`;
+        layerElement.dataset.speed = layer['data-speed'];
+        layerElement.dataset.autoSpeed = layer['auto-speed'] || 0.2; // Default auto-scroll speed
         
-        // Add CSS for parallax
-        const parallaxCSS = `
-            <style>
-                .parallax-container {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    overflow: hidden;
-                    z-index: -1;
-                }
-                .parallax-layer {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-size: cover;
-                    background-position: center;
-                    will-change: transform;
-                }
-                .layer-back {
-                    z-index: 1;
-                }
-                .layer-middle {
-                    z-index: 2;
-                }
-                .layer-front {
-                    z-index: 3;
-                }
-            </style>
-        `;
-        document.head.insertAdjacentHTML('beforeend', parallaxCSS);
+        // For seamless repeating, we need to duplicate the background
+        layerElement.style.backgroundRepeat = 'repeat-x';
+        layerElement.style.backgroundSize = 'auto 100%';
+        
+        parallaxContainer.appendChild(layerElement);
+    });
 
-        // Create layers
-        layers.forEach(layer => {
-            const layerElement = document.createElement('div');
-            layerElement.className = `parallax-layer ${layer.class}`;
-            layerElement.style.backgroundImage = `url('${layer.image}')`;
-        layerElement.dataset.speed = layer['data-speed']; // Fixed this line
-            parallaxContainer.appendChild(layerElement);
+    // Insert before main content
+    document.body.insertBefore(parallaxContainer, document.body.firstChild);
+
+    // Auto-scroll animation
+    let animationId;
+    let lastTime = 0;
+    let autoScrollPosition = 0;
+    
+    const animate = (timestamp) => {
+        if (!lastTime) lastTime = timestamp;
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+        
+        autoScrollPosition += deltaTime * 0.05; // Adjust this value to control overall speed
+        
+        const scrollLayers = parallaxContainer.querySelectorAll('.parallax-layer');
+        
+        scrollLayers.forEach(layer => {
+            const speed = parseFloat(layer.dataset.autoSpeed);
+            const xPos = -(autoScrollPosition * speed) % window.innerWidth;
+            layer.style.backgroundPosition = `${xPos}px 0`;
         });
+        
+        animationId = requestAnimationFrame(animate);
+    };
+    
+    // Start animation
+    animationId = requestAnimationFrame(animate);
+    
+    // Optional: Pause on hover
+    parallaxContainer.addEventListener('mouseenter', () => {
+        cancelAnimationFrame(animationId);
+    });
+    
+    parallaxContainer.addEventListener('mouseleave', () => {
+        lastTime = 0; // Reset time to avoid jump
+        animationId = requestAnimationFrame(animate);
+    });
 
-        // Insert before main content
-        document.body.insertBefore(parallaxContainer, this.mainDiv);
-
-        // Set up scroll event
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.pageYOffset;
-            const layers = parallaxContainer.querySelectorAll('.parallax-layer');
-            
-            layers.forEach(layer => {
-                const speed = parseFloat(layer.dataset.speed);
-                const yPos = -(scrollPosition * speed);
-                layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
-            });
+    // Set up scroll event for manual parallax (optional)
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.pageYOffset;
+        const parallaxLayers = parallaxContainer.querySelectorAll('.parallax-layer');
+        
+        parallaxLayers.forEach(layer => {
+            const speed = parseFloat(layer.dataset.speed);
+            const yPos = -(scrollPosition * speed);
+            layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
-
-};
-
+    });
+}
