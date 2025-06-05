@@ -194,3 +194,72 @@ function renderHeroList(heroListData) {
     `;
 
 }
+
+// parallax
+
+ setupParallax(layers) {
+        // Create container
+        const parallaxContainer = document.createElement('div');
+        parallaxContainer.className = 'parallax-container';
+        
+        // Add CSS for parallax
+        const parallaxCSS = `
+            <style>
+                .parallax-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    z-index: -1;
+                }
+                .parallax-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    will-change: transform;
+                }
+                .layer-back {
+                    z-index: 1;
+                }
+                .layer-middle {
+                    z-index: 2;
+                }
+                .layer-front {
+                    z-index: 3;
+                }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', parallaxCSS);
+
+        // Create layers
+        layers.forEach(layer => {
+            const layerElement = document.createElement('div');
+            layerElement.className = `parallax-layer ${layer.class}`;
+            layerElement.style.backgroundImage = `url('${layer.image}')`;
+            layerElement.dataset.speed = layer.data-speed;
+            parallaxContainer.appendChild(layerElement);
+        });
+
+        // Insert before main content
+        document.body.insertBefore(parallaxContainer, this.mainDiv);
+
+        // Set up scroll event
+        window.addEventListener('scroll', this.handleParallaxScroll);
+    }
+
+    handleParallaxScroll() {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        const layers = document.querySelectorAll('.parallax-layer');
+        
+        layers.forEach(layer => {
+            const speed = parseFloat(layer.dataset.speed);
+            const yPos = -(scrollPosition * speed);
+            layer.style.transform = `translateY(${yPos}px)`;
+        });
+    }
