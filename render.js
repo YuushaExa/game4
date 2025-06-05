@@ -251,7 +251,7 @@ height:300px;
         const layerElement = document.createElement('div');
         layerElement.className = `parallax-layer ${layer.class}`;
         layerElement.style.backgroundImage = `url('${layer.image}')`;
-        layerElement.dataset.speed = layer['data-speed'];
+        layerElement.dataset.speed = layer['auto-speed'];
         
         // For seamless repeating, we need to duplicate the background
         layerElement.style.backgroundRepeat = 'repeat-x';
