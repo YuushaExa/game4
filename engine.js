@@ -54,7 +54,7 @@ startVisualNovel() {
             this.setBackground(scene.background);
         }
 if (scene.parallax) {
-            this.setupParallax(scene.parallax.layers);
+            setupParallax(scene.parallax.layers);
         } 
         
            if (scene.color) {
