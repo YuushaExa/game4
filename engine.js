@@ -49,10 +49,14 @@ startVisualNovel() {
   this.mainDiv.style.backgroundImage = 'none';
     this.mainDiv.style.backgroundColor = 'transparent';
 
-        
+ 
        if (scene.background) {
             this.setBackground(scene.background);
         }
+if (scene.parallax) {
+            this.setupParallax(scene.parallax.layers);
+        } 
+        
            if (scene.color) {
             this.setColor(scene.color);
         }
