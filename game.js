@@ -213,17 +213,17 @@ const gameData = {
       {
         "class": "layer layer-back",
         "data-speed": 0.5,
-        "image": "https://example.com/path/to/your/background-image.jpg"
+        "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       },
       {
         "class": "layer layer-middle",
         "data-speed": 0.3,
-        "image": "https://example.com/path/to/your/middle-image.png"
+        "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       },
       {
         "class": "layer layer-front",
         "data-speed": 0.1,
-        "image": "https://example.com/path/to/your/foreground-image.png"
+        "image": "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg"
       }
     ]
   }
