@@ -215,7 +215,7 @@ function setupParallax(layers) {
                 z-index: -1;
             }
             .parallax-layer {
-                position: absolute;
+                position: relative;
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -223,6 +223,15 @@ function setupParallax(layers) {
                 background-size: cover;
                 background-position: center;
                 will-change: transform;
+            }
+            .parallax-layer.layer.layer-back {
+height:300px;
+            }
+               .parallax-layer.layer.layer-middle {
+height:300px;
+            }
+               .parallax-layer.layer.layer-front {
+height:300px;
             }
             .layer-back {
                 z-index: 1;
@@ -243,7 +252,6 @@ function setupParallax(layers) {
         layerElement.className = `parallax-layer ${layer.class}`;
         layerElement.style.backgroundImage = `url('${layer.image}')`;
         layerElement.dataset.speed = layer['data-speed'];
-        layerElement.dataset.autoSpeed = layer['auto-speed'] || 0.2; // Default auto-scroll speed
         
         // For seamless repeating, we need to duplicate the background
         layerElement.style.backgroundRepeat = 'repeat-x';
