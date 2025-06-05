@@ -197,12 +197,13 @@ function renderHeroList(heroListData) {
 
 // parallax
 
-function setupParallax(layers) {
-    // Create container
+function setupAutoParallax(layers) {
+    // 1. Create container
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
-    
-    // Add CSS for parallax
+    document.body.prepend(parallaxContainer);
+
+    // 2. Add CSS (optimized for auto-scrolling)
     const parallaxCSS = `
         <style>
             .parallax-container {
@@ -216,15 +217,13 @@ function setupParallax(layers) {
             }
             .parallax-layer {
                 position: relative;
-                top: 0;
-                left: 0;
                 width: 100%;
                 height: 100%;
-                background-size: cover;
-                background-position: center;
+                background-repeat: repeat-x;
+                background-size: auto 100%;
                 will-change: transform;
             }
-            .parallax-layer.layer.layer-back {
+                      .parallax-layer.layer.layer-back {
 height:300px;
             }
                .parallax-layer.layer.layer-middle {
@@ -233,81 +232,34 @@ height:300px;
                .parallax-layer.layer.layer-front {
 height:300px;
             }
-            .layer-back {
-                z-index: 1;
-            }
-            .layer-middle {
-                z-index: 2;
-            }
-            .layer-front {
-                z-index: 3;
-            }
+            .layer-back { z-index: 1; }
+            .layer-middle { z-index: 2; }
+            .layer-front { z-index: 3; }
         </style>
     `;
     document.head.insertAdjacentHTML('beforeend', parallaxCSS);
 
-    // Create layers
+    // 3. Create layers
     layers.forEach(layer => {
         const layerElement = document.createElement('div');
         layerElement.className = `parallax-layer ${layer.class}`;
         layerElement.style.backgroundImage = `url('${layer.image}')`;
-        layerElement.dataset.speed = layer['auto-speed'];
-        
-        // For seamless repeating, we need to duplicate the background
-        layerElement.style.backgroundRepeat = 'repeat-x';
-        layerElement.style.backgroundSize = 'auto 100%';
-        
+        layerElement.dataset.speed = layer['auto-speed']; // Only auto-speed used
         parallaxContainer.appendChild(layerElement);
     });
 
-    // Insert before main content
-    document.body.insertBefore(parallaxContainer, document.body.firstChild);
-
-    // Auto-scroll animation
+    // 4. Auto-scroll animation (smooth & efficient)
     let animationId;
-    let lastTime = 0;
-    let autoScrollPosition = 0;
-    
-    const animate = (timestamp) => {
-        if (!lastTime) lastTime = timestamp;
-        const deltaTime = timestamp - lastTime;
-        lastTime = timestamp;
-        
-        autoScrollPosition += deltaTime * 0.05; // Adjust this value to control overall speed
-        
-        const scrollLayers = parallaxContainer.querySelectorAll('.parallax-layer');
-        
-        scrollLayers.forEach(layer => {
-            const speed = parseFloat(layer.dataset.autoSpeed);
-            const xPos = -(autoScrollPosition * speed) % window.innerWidth;
+    let scrollPos = 0;
+    const animate = () => {
+        scrollPos += 0.5; // Base speed (adjust as needed)
+        parallaxContainer.querySelectorAll('.parallax-layer').forEach(layer => {
+            const speed = parseFloat(layer.dataset.speed);
+            const xPos = -(scrollPos * speed) % window.innerWidth;
             layer.style.backgroundPosition = `${xPos}px 0`;
         });
-        
         animationId = requestAnimationFrame(animate);
     };
-    
-    // Start animation
-    animationId = requestAnimationFrame(animate);
-    
-    // Optional: Pause on hover
-    parallaxContainer.addEventListener('mouseenter', () => {
-        cancelAnimationFrame(animationId);
-    });
-    
-    parallaxContainer.addEventListener('mouseleave', () => {
-        lastTime = 0; // Reset time to avoid jump
-        animationId = requestAnimationFrame(animate);
-    });
+    animate();
 
-    // Set up scroll event for manual parallax (optional)
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.pageYOffset;
-        const parallaxLayers = parallaxContainer.querySelectorAll('.parallax-layer');
-        
-        parallaxLayers.forEach(layer => {
-            const speed = parseFloat(layer.dataset.speed);
-            const yPos = -(scrollPosition * speed);
-            layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
-        });
-    });
 }
