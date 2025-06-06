@@ -67,7 +67,9 @@ if (scene.parallax) {
  if (scene.ui === "hero_list") {
     renderHeroList(scene);
 }
-        
+        if (scene.ui === "party") {
+    renderPartySystem();
+}
   if (scene.dialog) {
        renderDialogSystem(scene.dialog);
     }
