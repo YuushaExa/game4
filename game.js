@@ -1,3 +1,18 @@
+const enemies = {
+       mob: {
+        name: "mob",
+        image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
+        stats: {
+            strength: 3,
+            intelligence: 8,
+            agility: 6,
+            stamina: 7
+        },
+        skills: ["Attack"],
+        bio: "Mob"
+    },
+}
+
 const heroes = {
     rita: {
         name: "Rita",
@@ -6,7 +21,7 @@ const heroes = {
             strength: 5,
             intelligence: 8,
             agility: 6,
-            charisma: 7
+            stamina: 7
         },
         skills: ["Healing", "Persuasion", "First Aid"],
         bio: "A compassionate medic who always puts others before herself."
@@ -18,7 +33,7 @@ const heroes = {
             strength: 9,
             intelligence: 4,
             agility: 7,
-            charisma: 5
+            stamina: 5
         },
         skills: ["Combat", "Intimidation", "Survival"],
         bio: "A tough warrior with a heart of gold beneath his rough exterior."
