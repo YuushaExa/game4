@@ -264,3 +264,211 @@ height:300px;
     animate();
 
 }
+
+// Party
+
+function renderPartySystem() {
+    const container = document.getElementById('main');
+    
+    // Create party UI HTML
+    container.innerHTML = `
+        <style>
+            .party-container {
+                padding: 20px;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .party-slots {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin-bottom: 40px;
+                flex-wrap: wrap;
+            }
+            .party-slot {
+                width: 150px;
+                height: 200px;
+                border: 2px dashed #666;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(0,0,0,0.1);
+                transition: all 0.2s;
+            }
+            .party-slot.filled {
+                border-color: #4CAF50;
+                background-color: rgba(76, 175, 80, 0.1);
+            }
+            .slot-image {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+            .hero-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+            .hero-card {
+                width: 120px;
+                cursor: pointer;
+                transition: transform 0.2s;
+                text-align: center;
+            }
+            .hero-card:hover {
+                transform: scale(1.05);
+            }
+            .hero-image {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #333;
+            }
+            .hero-name {
+                margin-top: 5px;
+                font-size: 14px;
+            }
+            .controls {
+                margin-top: 30px;
+                text-align: center;
+            }
+            .btn {
+                padding: 10px 20px;
+                margin: 0 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            .btn-save {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .btn-clear {
+                background-color: #f44336;
+                color: white;
+            }
+            .btn-back {
+                background-color: #2196F3;
+                color: white;
+            }
+        </style>
+        <div class="party-container">
+            <h2>Party Formation</h2>
+            <p>Select up to 5 heroes for your party</p>
+            
+            <div class="party-slots" id="partySlots">
+                ${Array(5).fill().map((_, i) => `
+                    <div class="party-slot" data-slot-index="${i}">
+                        <div class="slot-empty">Empty Slot</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <h3>Available Heroes</h3>
+            <div class="hero-list" id="heroList">
+                ${Object.entries(heroes).map(([id, hero]) => `
+                    <div class="hero-card" data-hero-id="${id}">
+                        <img src="${hero.image}" alt="${hero.name}" class="hero-image">
+                        <div class="hero-name">${hero.name}</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-save" id="saveParty">Save Party</button>
+                <button class="btn btn-clear" id="clearParty">Clear Party</button>
+                <button class="btn btn-back" next_scene="start_screen">Back</button>
+            </div>
+        </div>
+    `;
+
+    // Initialize the party slots with current party data
+    updatePartySlots();
+
+    // Add event listeners
+    document.querySelectorAll('.hero-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const heroId = this.getAttribute('data-hero-id');
+            addHeroToParty(heroId);
+        });
+    });
+
+    document.getElementById('saveParty').addEventListener('click', saveParty);
+    document.getElementById('clearParty').addEventListener('click', clearParty);
+}
+
+function updatePartySlots() {
+    const slots = document.querySelectorAll('.party-slot');
+    
+    // Clear all slots first
+    slots.forEach(slot => {
+        slot.innerHTML = '<div class="slot-empty">Empty Slot</div>';
+        slot.classList.remove('filled');
+    });
+    
+    // Fill slots with current party
+    gameState.party.forEach((heroId, index) => {
+        if (heroId && heroes[heroId]) {
+            const hero = heroes[heroId];
+            const slot = slots[index];
+            
+            slot.innerHTML = `
+                <img src="${hero.image}" alt="${hero.name}" class="slot-image">
+                <div>${hero.name}</div>
+            `;
+            slot.classList.add('filled');
+        }
+    });
+}
+
+function addHeroToParty(heroId) {
+    // Check if hero is already in party
+    if (gameState.party.includes(heroId)) {
+        alert('This hero is already in your party!');
+        return;
+    }
+    
+    // Find first empty slot
+    const emptySlotIndex = gameState.party.findIndex(slot => !slot);
+    
+    if (emptySlotIndex === -1 && gameState.party.length < 5) {
+        // There's space but no empty slots (array not full)
+        gameState.party.push(heroId);
+    } else if (emptySlotIndex !== -1) {
+        // Replace empty slot
+        gameState.party[emptySlotIndex] = heroId;
+    } else {
+        alert('Your party is full! Remove someone first.');
+        return;
+    }
+    
+    updatePartySlots();
+}
+
+function saveParty() {
+    // Filter out any empty slots
+    gameState.party = gameState.party.filter(heroId => heroId);
+    
+    if (gameState.party.length === 0) {
+        alert('Your party is empty! Add some heroes first.');
+        return;
+    }
+    
+    alert('Party saved successfully!');
+    // The party is already saved in gameState.party
+    // You can now use gameState.party in other scenes
+}
+
+function clearParty() {
+    if (confirm('Are you sure you want to clear your party?')) {
+        gameState.party = [];
+        updatePartySlots();
+    }
+}
