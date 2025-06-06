@@ -92,7 +92,8 @@ const gameData = {
                          <button class="start-btn" next_scene="block_2">Start 2</button>
                     <div class="count-display">Current count: ${gameState.globalCount}</div>
                     <button class="options-btn" next_scene="options">Options</button>
-                        <button class="start-btn" next_scene="hero_list">Available Hero</button>
+                        <button class="start-btn" next_scene="hero_list">Available Hero</button>     
+                        <button class="start-btn" next_scene="party">Manage Party</button>
                                                 <button class="start-btn" next_scene="stage1">stage 1</button>
                         </div>
             `,
@@ -280,7 +281,9 @@ const gameData = {
     hero_list:  {
     ui: "hero_list"
         },
-
+ party: {
+            ui: "party"
+        },
    stage1:  {
     ui: "battle",
    "enemies": {
