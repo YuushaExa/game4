@@ -1,7 +1,7 @@
 const heroes = {
     rita: {
         name: "Rita",
-        image: "rita.jpg",
+        image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
         stats: {
             strength: 5,
             intelligence: 8,
@@ -13,7 +13,7 @@ const heroes = {
     },
     kong: {
         name: "Kong",
-        image: "kong.jpg",
+        image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
         stats: {
             strength: 9,
             intelligence: 4,
