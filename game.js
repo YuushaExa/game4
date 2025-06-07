@@ -24,7 +24,10 @@ const heroes = {
             stamina: 7
         },
         skills: ["Healing", "Persuasion", "First Aid"],
-        bio: "A compassionate medic who always puts others before herself."
+        bio: "A compassionate medic who always puts others before herself.",
+        owned: "0",
+        lvl: "1",
+        rank" "0"  
     },
     kong: {
         name: "Kong",
