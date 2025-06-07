@@ -25,9 +25,9 @@ const heroes = {
         },
         skills: ["Healing", "Persuasion", "First Aid"],
         bio: "A compassionate medic who always puts others before herself.",
-        owned: "0",
-        lvl: "1",
-        rank" "0"  
+        owned: 0,
+        lvl: 1,
+        rank: 0  
     },
     kong: {
         name: "Kong",
@@ -39,7 +39,10 @@ const heroes = {
             stamina: 5
         },
         skills: ["Combat", "Intimidation", "Survival"],
-        bio: "A tough warrior with a heart of gold beneath his rough exterior."
+        bio: "A tough warrior with a heart of gold beneath his rough exterior.",
+              owned: 0,
+        lvl: 1,
+        rank: 0  
     }
 };
 
