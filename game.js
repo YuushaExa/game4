@@ -152,6 +152,15 @@ const gameData = {
         block_1: {
             background: "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg",
             color: "#bbbbbb",
+                buttons: [
+        {
+            type: "image",
+            position: "50px 100px auto auto",
+            image: "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg",
+            alt: "Button Image",
+            width: "150px"
+        }
+    ],
              dialog: [
                 {
                     name: "Character 1",
