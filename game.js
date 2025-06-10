@@ -201,64 +201,14 @@ const gameData = {
 
    block_14: {
  html: `
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10x10 Top-Down Map</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        h1 {
-            color: green;
-            margin-bottom: 20px;
-        }
-        .map-container {
-            display: grid;
-            grid-template-columns: repeat(10, 50px);
-            grid-template-rows: repeat(10, 50px);
-            gap: 2px;
-        }
-        .cell {
-            width: 50px;
-            height: 50px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: green;
-        }
-        .controls {
-            margin-top: 20px;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: green;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h1>Top-Down Map (10x10)</h1>
+ <h1>Top-Down Map (10x10)</h1>
     <div class="map-container" id="map"></div>
     <div class="controls">
         <button id="resetBtn">Reset Map</button>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mapContainer = document.getElementById('map');
+`,
+   onRender: function() {
+ const mapContainer = document.getElementById('map');
             const resetBtn = document.getElementById('resetBtn');
             
             // Create 10x10 map
@@ -280,15 +230,10 @@ const gameData = {
             
             // Reset button functionality
             resetBtn.addEventListener('click', createMap);
-        });
-    </script>
-</body>
-</html>
-`,
+   }
+ },
 
-          },
-
-        block_2: {
+ block_2: {
             background: {
                 type: "color",
                 source: "#f0f0f0"
