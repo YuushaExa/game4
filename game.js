@@ -214,21 +214,8 @@ const gameData = {
             margin-bottom: 20px;
         }
         .map-container {
-            display: grid;
-            grid-template-columns: repeat(10, 50px);
-            grid-template-rows: repeat(10, 50px);
-            gap: 2px;
-        }
-        .cell {
-            width: 50px;
-            height: 50px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: green;
+            margin: 20px 0;
+            border: 2px solid #333;
         }
         .controls {
             margin-top: 20px;
@@ -243,34 +230,95 @@ const gameData = {
         }
     </style>
  <h1>Top-Down Map (10x10)</h1>
-    <div class="map-container" id="map"></div>
+ <canvas id="mapCanvas" width="500" height="500" class="map-container"></canvas>
     <div class="controls">
         <button id="resetBtn">Reset Map</button>
     </div>
 `,
    onRender: function() {
- const mapContainer = document.getElementById('map');
+     const canvas = document.getElementById('mapCanvas');
+            const ctx = canvas.getContext('2d');
             const resetBtn = document.getElementById('resetBtn');
             
-            // Create 10x10 map
-            function createMap() {
-                mapContainer.innerHTML = '';
-                for (let row = 0; row < 10; row++) {
-                    for (let col = 0; col < 10; col++) {
-                        const cell = document.createElement('div');
-                        cell.className = 'cell';
-                        cell.textContent = `${String.fromCharCode(65 + row)}${col + 1}`;
-                        cell.id = `cell-${row}-${col}`;
-                        mapContainer.appendChild(cell);
+            // Cell size
+            const cellSize = 50;
+            const rows = 10;
+            const cols = 10;
+            
+            // Colors
+            const backgroundColor = '#f0f0f0';
+            const borderColor = '#cccccc';
+            const textColor = 'green';
+            
+            // Draw the map
+            function drawMap() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw cells
+                for (let row = 0; row < rows; row++) {
+                    for (let col = 0; col < cols; col++) {
+                        const x = col * cellSize;
+                        const y = row * cellSize;
+                        
+                        // Draw cell background
+                        ctx.fillStyle = backgroundColor;
+                        ctx.fillRect(x, y, cellSize, cellSize);
+                        
+                        // Draw cell border
+                        ctx.strokeStyle = borderColor;
+                        ctx.strokeRect(x, y, cellSize, cellSize);
+                        
+                        // Draw cell label
+                        ctx.fillStyle = textColor;
+                        ctx.font = 'bold 12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(
+                            `${String.fromCharCode(65 + row)}${col + 1}`,
+                            x + cellSize / 2,
+                            y + cellSize / 2
+                        );
                     }
                 }
             }
             
             // Initialize map
-            createMap();
+            drawMap();
+            
+            // Handle canvas clicks
+            canvas.addEventListener('click', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const col = Math.floor(x / cellSize);
+                const row = Math.floor(y / cellSize);
+                
+                if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                    // Highlight clicked cell
+                    ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+                    ctx.fillRect(
+                        col * cellSize, 
+                        row * cellSize, 
+                        cellSize, 
+                        cellSize
+                    );
+                    
+                    // Redraw label (so it's visible over highlight)
+                    ctx.fillStyle = textColor;
+                    ctx.fillText(
+                        `${String.fromCharCode(65 + row)}${col + 1}`,
+                        col * cellSize + cellSize / 2,
+                        row * cellSize + cellSize / 2
+                    );
+                    
+                    console.log(`Clicked cell: ${String.fromCharCode(65 + row)}${col + 1}`);
+                }
+            });
             
             // Reset button functionality
-            resetBtn.addEventListener('click', createMap);
+            resetBtn.addEventListener('click', drawMap);
    }
  },
 
