@@ -201,6 +201,47 @@ const gameData = {
 
    block_14: {
  html: `
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: green;
+            margin-bottom: 20px;
+        }
+        .map-container {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 2px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: green;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
  <h1>Top-Down Map (10x10)</h1>
     <div class="map-container" id="map"></div>
     <div class="controls">
