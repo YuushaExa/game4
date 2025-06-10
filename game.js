@@ -135,17 +135,17 @@ const gameData = {
  dialog: [
                 {
                     name: "Character 1",
-                    image: "avatar.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the first dialogue."
                 },
                 {
                     name: "Character 1",
-                    image: "avatar.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the second dialogue."
                 },
                 {
                     name: "Character 2",
-                    image: "avatar2.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the third dialogue.",
                 }
      ]
@@ -165,17 +165,17 @@ const gameData = {
              dialog: [
                 {
                     name: "Character 1",
-                    image: "avatar.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the first dialogue."
                 },
                 {
                     name: "Character 1",
-                    image: "avatar.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the second dialogue."
                 },
                 {
                     name: "Character 2",
-                    image: "avatar2.jpg",
+                    image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/Snowempre.jpg",
                     text: "This is the third dialogue.",
  choices: [
                 {
