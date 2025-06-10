@@ -156,7 +156,7 @@ const gameData = {
         {
             type: "image",
             position: "50px 100px auto auto",
-            image: "https://raw.githubusercontent.com/YuushaExa/game2/refs/heads/main/Image_fx%20(1).jpg",
+            image: "https://raw.githubusercontent.com/YuushaExa/game4/refs/heads/main/assets/assets_task_01jwk89ve6fzxsq6q3fppt7eaa_1748697957_img_0.webp",
             alt: "Button Image",
             width: "150px"
         }
