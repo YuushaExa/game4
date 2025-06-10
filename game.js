@@ -201,124 +201,247 @@ const gameData = {
 
    block_14: {
  html: `
-   <style>
+ <style>
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
+            height: 100vh;
+            background-color: #70c5ce;
+            font-family: Arial, sans-serif;
         }
-        h1 {
-            color: green;
-            margin-bottom: 20px;
+        
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            overflow: hidden;
+            background-color: #70c5ce;
+            border: 2px solid #000;
         }
-        .map-container {
-            margin: 20px 0;
-            border: 2px solid #333;
+        
+        #bird {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background-color: #ff0;
+            border-radius: 50%;
+            left: 50px;
         }
-        .controls {
-            margin-top: 20px;
+        
+        .pipe {
+            position: absolute;
+            width: 60px;
+            background-color: #0a0;
+            border: 2px solid #000;
+            box-sizing: border-box;
         }
-        button {
-            padding: 8px 16px;
-            background-color: green;
+        
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            z-index: 10;
+        }
+        
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 100;
+        }
+        
+        #restart-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff0;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
         }
     </style>
- <h1>Top-Down Map (10x10)</h1>
- <canvas id="mapCanvas" width="500" height="500" class="map-container"></canvas>
-    <div class="controls">
-        <button id="resetBtn">Reset Map</button>
+     <div id="game-container">
+        <div id="bird"></div>
+        <div id="score">0</div>
+        <div id="game-over">
+            <h2>Game Over!</h2>
+            <p>Your score: <span id="final-score">0</span></p>
+            <button id="restart-btn">Play Again</button>
+        </div>
     </div>
 `,
    onRender: function() {
-     const canvas = document.getElementById('mapCanvas');
-            const ctx = canvas.getContext('2d');
-            const resetBtn = document.getElementById('resetBtn');
+          const bird = document.getElementById('bird');
+        const gameContainer = document.getElementById('game-container');
+        const scoreElement = document.getElementById('score');
+        const gameOverElement = document.getElementById('game-over');
+        const finalScoreElement = document.getElementById('final-score');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        let birdPosition = 300;
+        let birdVelocity = 0;
+        let gravity = 0.5;
+        let jumpForce = -10;
+        let gameRunning = true;
+        let score = 0;
+        let pipes = [];
+        let pipeGap = 150;
+        let pipeFrequency = 1500; // milliseconds
+        let lastPipeTime = 0;
+        
+        // Set initial bird position
+        bird.style.top = birdPosition + 'px';
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' && gameRunning) {
+                birdVelocity = jumpForce;
+            }
             
-            // Cell size
-            const cellSize = 50;
-            const rows = 10;
-            const cols = 10;
+            if (e.code === 'Space' && !gameRunning) {
+                restartGame();
+            }
+        });
+        
+        gameContainer.addEventListener('click', function() {
+            if (gameRunning) {
+                birdVelocity = jumpForce;
+            } else {
+                restartGame();
+            }
+        });
+        
+        restartBtn.addEventListener('click', restartGame);
+        
+        // Game loop
+        function gameLoop(timestamp) {
+            if (!gameRunning) return;
             
-            // Colors
-            const backgroundColor = '#f0f0f0';
-            const borderColor = '#cccccc';
-            const textColor = 'green';
+            // Update bird position
+            birdVelocity += gravity;
+            birdPosition += birdVelocity;
+            bird.style.top = birdPosition + 'px';
             
-            // Draw the map
-            function drawMap() {
-                // Clear canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Check for collisions with ground or ceiling
+            if (birdPosition <= 0 || birdPosition >= gameContainer.offsetHeight - bird.offsetHeight) {
+                endGame();
+                return;
+            }
+            
+            // Generate new pipes
+            if (timestamp - lastPipeTime > pipeFrequency) {
+                createPipe();
+                lastPipeTime = timestamp;
+            }
+            
+            // Move pipes and check for collisions
+            for (let i = pipes.length - 1; i >= 0; i--) {
+                const pipe = pipes[i];
+                const pipeX = parseInt(pipe.style.left);
                 
-                // Draw cells
-                for (let row = 0; row < rows; row++) {
-                    for (let col = 0; col < cols; col++) {
-                        const x = col * cellSize;
-                        const y = row * cellSize;
-                        
-                        // Draw cell background
-                        ctx.fillStyle = backgroundColor;
-                        ctx.fillRect(x, y, cellSize, cellSize);
-                        
-                        // Draw cell border
-                        ctx.strokeStyle = borderColor;
-                        ctx.strokeRect(x, y, cellSize, cellSize);
-                        
-                        // Draw cell label
-                        ctx.fillStyle = textColor;
-                        ctx.font = 'bold 12px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText(
-                            `${String.fromCharCode(65 + row)}${col + 1}`,
-                            x + cellSize / 2,
-                            y + cellSize / 2
-                        );
-                    }
+                // Move pipe
+                pipe.style.left = (pipeX - 2) + 'px';
+                
+                // Check if pipe is off screen
+                if (pipeX < -60) {
+                    gameContainer.removeChild(pipe);
+                    pipes.splice(i, 1);
+                    continue;
+                }
+                
+                // Check for score (when bird passes a pipe)
+                if (pipe.dataset.passed === 'false' && pipeX + 60 < 50) {
+                    pipe.dataset.passed = 'true';
+                    score++;
+                    scoreElement.textContent = score;
+                }
+                
+                // Check for collision with bird
+                if (
+                    50 < pipeX + 60 && 
+                    50 + 40 > pipeX && 
+                    (birdPosition < pipe.dataset.topHeight || 
+                     birdPosition + 30 > pipe.dataset.topHeight + pipeGap)
+                ) {
+                    endGame();
+                    return;
                 }
             }
             
-            // Initialize map
-            drawMap();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Create a new pipe
+        function createPipe() {
+            const topHeight = Math.floor(Math.random() * (gameContainer.offsetHeight - pipeGap - 100)) + 50;
             
-            // Handle canvas clicks
-            canvas.addEventListener('click', function(e) {
-                const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const col = Math.floor(x / cellSize);
-                const row = Math.floor(y / cellSize);
-                
-                if (row >= 0 && row < rows && col >= 0 && col < cols) {
-                    // Highlight clicked cell
-                    ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
-                    ctx.fillRect(
-                        col * cellSize, 
-                        row * cellSize, 
-                        cellSize, 
-                        cellSize
-                    );
-                    
-                    // Redraw label (so it's visible over highlight)
-                    ctx.fillStyle = textColor;
-                    ctx.fillText(
-                        `${String.fromCharCode(65 + row)}${col + 1}`,
-                        col * cellSize + cellSize / 2,
-                        row * cellSize + cellSize / 2
-                    );
-                    
-                    console.log(`Clicked cell: ${String.fromCharCode(65 + row)}${col + 1}`);
-                }
-            });
+            // Top pipe
+            const topPipe = document.createElement('div');
+            topPipe.className = 'pipe';
+            topPipe.style.left = gameContainer.offsetWidth + 'px';
+            topPipe.style.top = '0';
+            topPipe.style.height = topHeight + 'px';
+            topPipe.dataset.topHeight = topHeight;
+            topPipe.dataset.passed = 'false';
             
-            // Reset button functionality
-            resetBtn.addEventListener('click', drawMap);
+            // Bottom pipe
+            const bottomPipe = document.createElement('div');
+            bottomPipe.className = 'pipe';
+            bottomPipe.style.left = gameContainer.offsetWidth + 'px';
+            bottomPipe.style.top = (topHeight + pipeGap) + 'px';
+            bottomPipe.style.height = (gameContainer.offsetHeight - topHeight - pipeGap) + 'px';
+            bottomPipe.dataset.topHeight = topHeight;
+            bottomPipe.dataset.passed = 'false';
+            
+            gameContainer.appendChild(topPipe);
+            gameContainer.appendChild(bottomPipe);
+            
+            pipes.push(topPipe);
+            pipes.push(bottomPipe);
+        }
+        
+        // End the game
+        function endGame() {
+            gameRunning = false;
+            finalScoreElement.textContent = score;
+            gameOverElement.style.display = 'block';
+        }
+        
+        // Restart the game
+        function restartGame() {
+            // Remove all pipes
+            pipes.forEach(pipe => gameContainer.removeChild(pipe));
+            pipes = [];
+            
+            // Reset game state
+            birdPosition = 300;
+            birdVelocity = 0;
+            bird.style.top = birdPosition + 'px';
+            score = 0;
+            scoreElement.textContent = score;
+            gameOverElement.style.display = 'none';
+            lastPipeTime = 0;
+            
+            // Start game
+            gameRunning = true;
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Start the game
+        requestAnimationFrame(gameLoop);
    }
  },
 
