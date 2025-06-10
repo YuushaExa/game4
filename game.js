@@ -201,6 +201,12 @@ const gameData = {
 
    block_14: {
  html: `
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10x10 Top-Down Map</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -242,13 +248,16 @@ const gameData = {
             cursor: pointer;
         }
     </style>
-  <div class="map-container" id="map"></div>
+</head>
+<body>
+    <h1>Top-Down Map (10x10)</h1>
+    <div class="map-container" id="map"></div>
     <div class="controls">
         <button id="resetBtn">Reset Map</button>
     </div>
-`,
-   onRender: function() {
-  document.addEventListener('DOMContentLoaded', function() {
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             const mapContainer = document.getElementById('map');
             const resetBtn = document.getElementById('resetBtn');
             
@@ -272,7 +281,10 @@ const gameData = {
             // Reset button functionality
             resetBtn.addEventListener('click', createMap);
         });
-},
+    </script>
+</body>
+</html>
+`,
 
           },
 
