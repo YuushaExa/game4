@@ -101,6 +101,7 @@ const gameData = {
                         <button class="start-btn" next_scene="hero_list">Available Hero</button>     
                         <button class="start-btn" next_scene="party">Manage Party</button>
                                                 <button class="start-btn" next_scene="stage1">stage 1</button>
+         <button class="start-btn" next_scene="block_14">stage 14</button>
                         </div>
             `,
     buttons: [
@@ -197,6 +198,84 @@ const gameData = {
                 next_scene: "block_2" // scene to transition to after 5 seconds
             },
         },
+
+   block_14: {
+ html: `
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: green;
+            margin-bottom: 20px;
+        }
+        .map-container {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 2px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: green;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+  <div class="map-container" id="map"></div>
+    <div class="controls">
+        <button id="resetBtn">Reset Map</button>
+    </div>
+`,
+   onRender: function() {
+  document.addEventListener('DOMContentLoaded', function() {
+            const mapContainer = document.getElementById('map');
+            const resetBtn = document.getElementById('resetBtn');
+            
+            // Create 10x10 map
+            function createMap() {
+                mapContainer.innerHTML = '';
+                for (let row = 0; row < 10; row++) {
+                    for (let col = 0; col < 10; col++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'cell';
+                        cell.textContent = `${String.fromCharCode(65 + row)}${col + 1}`;
+                        cell.id = `cell-${row}-${col}`;
+                        mapContainer.appendChild(cell);
+                    }
+                }
+            }
+            
+            // Initialize map
+            createMap();
+            
+            // Reset button functionality
+            resetBtn.addEventListener('click', createMap);
+        });
+},
+
+          },
+
         block_2: {
             background: {
                 type: "color",
