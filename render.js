@@ -94,7 +94,7 @@ function renderChoices(choices) {
 function renderButtons(buttonsData) {
         buttonsData.forEach(button => {
             const link = document.createElement('a');
-            link.href = button.url || '';
+            link.href = button.url || 'javascript:void(0)';
             
             if (button.next_scene) {
                 link.setAttribute('next_scene', button.next_scene);
@@ -130,6 +130,7 @@ function renderButtons(buttonsData) {
             this.mainDiv.appendChild(link);
         });
     }
+
 
 // HERO list
 
