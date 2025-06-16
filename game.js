@@ -119,7 +119,6 @@ const gameData = {
             text: "Continue",
             color: "#FFFFFF",
             background: "#FF5733",
-            next_scene: "options",
             class: "special-button"
         }
     ],
