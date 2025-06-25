@@ -102,6 +102,7 @@ const gameData = {
                         <button class="start-btn" next_scene="party">Manage Party</button>
                                                 <button class="start-btn" next_scene="stage1">stage 1</button>
          <button class="start-btn" next_scene="block_14">stage 14</button>
+                  <button class="start-btn" next_scene="block_map">MAP/button>
                         </div>
             `,
     buttons: [
@@ -130,6 +131,12 @@ const gameData = {
             },
             next_scene: "block_1"
         },
+            block_map: {
+"map": {
+    "tiles": 20,
+    "tileSize": 64
+          }
+            },
           block_12: {
  dialog: [
                 {
