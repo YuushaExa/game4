@@ -102,7 +102,7 @@ const gameData = {
                         <button class="start-btn" next_scene="party">Manage Party</button>
                                                 <button class="start-btn" next_scene="stage1">stage 1</button>
          <button class="start-btn" next_scene="block_14">stage 14</button>
-             ${gameState.globalCount === 10 ? '<button class="start-btn" next_scene="block_map">MAP</button>' : 'not enough points'}
+                             <div id="map-button-container"></div>
                         </div>
             `,
     buttons: [
@@ -126,7 +126,13 @@ const gameData = {
             onRender: function() {
                 // Refresh the count display when returning to this scene
                 document.querySelector('.count-display').textContent = `Current count: ${gameState.globalCount}`;
-
+                   
+                const container = document.getElementById('map-button-container');
+                if (gameState.globalCount === 10) {
+                    container.innerHTML = '<button class="start-btn" next_scene="block_map">MAP</button>';
+                } else {
+                    container.innerHTML = 'not enough points';
+                }
 
             },
             next_scene: "block_1"
