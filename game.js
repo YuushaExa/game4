@@ -47,7 +47,7 @@ const heroes = {
 };
 
 const gameState = {
-    globalCount: 0,
+    globalCount: 10,
     previousScene: null,
     selectedHero: null,  
     party: []
