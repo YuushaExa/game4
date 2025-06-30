@@ -102,7 +102,7 @@ const gameData = {
                         <button class="start-btn" next_scene="party">Manage Party</button>
                                                 <button class="start-btn" next_scene="stage1">stage 1</button>
          <button class="start-btn" next_scene="block_14">stage 14</button>
-             ${gameState.globalCount === 10 ? '<button class="start-btn" next_scene="block_map">MAP</button>' : ''}
+             ${gameState.globalCount === 11 ? '<button class="start-btn" next_scene="block_map">MAP</button>' : ''}
                         </div>
             `,
     buttons: [
